@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>VueJs</title>
+
+  <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+</head>
+<body>
+  <div id="app">
+    <span v-if="showElement" v-bind:title="message">
+      Peek A Boo: {{ instrumento }}
+    </span>
+
+    <br/>
+    <br/>
+    <span>{{ message }}</span>
+    <button v-on:click="reverseImage">Reverse message</button>
+
+    <br/>
+    <br/>
+    <br/>
+    <strong>Handling User Input</strong>
+    <p>{{ message }}</p>
+    <input v-model="message">
+
+    <br/>
+    <br/>
+    <ol>
+      <li v-for="todo in todos">
+        {{ todo.text }}
+      </li>
+    </ol>
+  </div>
+
+  <script>
+    const app = new Vue({
+      el: '#app',
+      data: {
+        instrumento: 'Violão',
+        showElement: true,
+        message: 'Peek a chu?',
+        todos: [
+          { text: 'Learn Javascript'},
+          { text: 'Learn Vue'},
+          { text: 'Learn Node'},
+        ]
+      },
+      methods: {
+        reverseImage() {
+          this.message = this.message.split('').reverse().join('');
+        }
+      }
+    })
+
+  </script>
+  
+</body>
+</html>
