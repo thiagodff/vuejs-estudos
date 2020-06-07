@@ -28,17 +28,20 @@
     <br/>
     <br/>
     <ol>
-      <li v-for="todo in todos">
-        {{ todo.text }}
+      <li v-for="(todo, index) in todos" :key="index">
+        [{{index}}] - {{ todo.text }}
       </li>
     </ol>
+
+    <button @click="removeItem">Remove Item</button>
+    <button @click="modifyItem">Modify Item</button>
   </div>
 
   <script>
-    const app = new Vue({
+    const vm = new Vue({
       el: '#app',
       data: {
-        instrumento: 'Violão',
+        _instrumento: 'Violão',
         showElement: true,
         message: 'Peek a chu?',
         todos: [
@@ -50,6 +53,16 @@
       methods: {
         reverseImage() {
           this.message = this.message.split('').reverse().join('');
+        },
+        removeItem() {
+          this.todos.pop();
+        },
+        modifyItem() {
+          // only this line cannot guarantee reactivity
+          this.todos[0] = { text: 'Learn C++' };
+
+          // To perform reactivity
+          this.$set(this.todos, 0, { text: 'Learn C++' });
         }
       }
     })
