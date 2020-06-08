@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>VueJs</title>
+
+  <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+</head>
+<body>
+  <div id="app">
+    <p>{{ foo }}</p>
+    <button v-on:click="foo = 'oi'">Change it</button>
+  </div>
+
+  <script>
+    var obj = {
+      foo: 'bar',
+    }
+
+    Object.freeze(obj)
+
+    const vm = new Vue({
+      el: '#app',
+      data: obj,
+      methods: {
+        changeItem() {
+          vm.$set(foo, 'oi')
+        }
+      }
+    })
+
+    new Vue({
+      data: {
+        number: 1,
+      },
+      // created can be used to run code after an instance is created
+      created: function() {
+        console.log('Number is: ' + this.number) // this points to vm instance
+      }
+      // There are also other hooks which will be called at different stages of the instance’s lifecycle,
+      // such as mounted, updated, and destroyed.
+    })
+  </script>
+</body>
+</html>
