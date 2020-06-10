@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>VueJs</title>
+
+  <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+</head>
+<body>
+  <div id="app">
+    <div class="static-class" v-bind:class="{ active: isActive, 'text-danger': hasError }">
+      <h1>Bind Classes</h1>
+    </div>
+
+    <div v-bind:style="{ color: activeColor, fontSize: fontSize + 'px'}">
+      <p>Bind Styles</p>
+    </div>
+  </div>
+
+  <script>
+    const vm = new Vue({
+      el: '#app',
+      data: {
+        isActive: true,
+        hasError: false,
+        activeColor: 'blue',
+        fontSize: 30,
+      },
+    })
+
+  </script>
+  
+  <style>
+    .active {
+      color: green;
+    }
+
+    .text-danger {
+      background: red;
+    }
+  </style>
+
+</body>
+</html>
