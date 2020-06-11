@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>VueJs</title>
+
+  <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+</head>
+<body>
+  <a href="https://vuejs.org/v2/guide/forms.html" target="__blank">See how to use here!</a>
+  <br>
+  <p>Basically use v-model for dual binding instead input and value parameter</p>
+  
+  <div id="app">
+    <form action="">
+      <label for="nome">Nome</label> <br>
+      <input type="text" id="nome" name="nome" v-model="name"> <br>
+      <label for="nome">Mensagem</label> <br>
+      <textarea type="text" id="mensagem" name="mensagem" v-model="message"></textarea> <br> <br>
+      <input @click.prevent="handleSumit" type="submit">
+    </form>
+
+    <ul>
+      <li v-for="(result, key) in results">
+        {{ key }}: {{ result }}
+      </li>
+    </ul>
+  </div>
+
+  <script>
+    const vm = new Vue({
+      el: '#app',
+      data: {
+        name: "",
+        message: "",
+        results: "",
+      },
+      methods: {
+        handleSumit() {
+          this.results = {
+            name: this.name,
+            message: this.message,
+          }
+        }
+      }
+    })
+  </script>
+  
+</body>
+</html>
