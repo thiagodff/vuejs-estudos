@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>VueJs</title>
+
+  <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+</head>
+<body>
+  <div id="app">
+    <button v-on:click="warn('Warn message', $event)" type="submit">
+      Submit
+    </button>
+
+    <br>
+    <br>
+
+    <button @click.prevent="counter++">Add</button>
+    {{ counter }}
+
+    <ul>
+      <li v-for="(infos, key) in github">
+        {{ key }}: {{ infos }}
+      </li>
+    </ul>
+  </div>
+
+  <script>
+    const vm = new Vue({
+      el: '#app',
+      data: {
+        github: {},
+        counter: 0,
+      },
+      methods: {
+        warn: function(message, event) {
+          event.preventDefault();
+
+          alert(message);
+        },
+        fetchGithub() {
+          fetch('https://api.github.com/users/thiagodff')
+            .then(response => response.json())
+            .then(response => {
+              this.github = response;
+            });
+        }
+      },
+      created() {
+        this.fetchGithub();
+      },
+      updated() {
+        document.title = `VueJs ${this.counter}` // cpoderia ser feito utilizando o watch
+      },
+    })
+  </script>
+  
+</body>
+</html>
