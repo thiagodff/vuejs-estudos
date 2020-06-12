@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>VueJs</title>
+
+  <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+</head>
+<body>
+  <div id="app">
+    <local-component></local-component>
+
+    <button-count></button-count>
+    <button-count></button-count>
+  </div>
+
+  <script>
+    // Global Component
+    Vue.component("buttonCount", {
+      data() {
+        return {
+          message: "Hi VueJs",
+          count: 0,
+        }
+      },
+      template: `<button @click="count++">Add {{count}}</button>`
+    });
+    
+
+    const localComponent = {
+      name: "localComponent",
+      data() {
+        return {
+          message: "Hi, I'm a local component",
+        }
+      },
+      computed: {
+        currentDay() {
+          const date = new Date();
+          return date;
+        }
+      },
+      template: `
+        <div>
+          <h3>{{ message }} - {{ currentDay }}</h3>
+          <button-count></button-count>
+        </div>
+      `,
+    }
+    
+    const vm = new Vue({
+      el: '#app',
+      data: {
+        message: "Hello VueJs"
+      },
+      components: {
+        localComponent,
+      }
+    });
+  </script>
+  
+</body>
+</html>
