@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>VueJs Components Envents</title>
+
+  <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+</head>
+<body>
+  <div id="app">
+    <h1>{{ count }}</h1>
+    <counter-button :count="count" @update:count="count = $event"></counter-button>
+
+    <br>
+    <counter-button :count.sync="count"></counter-button>
+  </div>
+
+  <script type="module">
+    const EventBus = new Vue();
+
+    // esse evento pode ser colocado em qualquer componente e alterar dados do mesmo
+    EventBus.$on("globalEvent", (event) => {
+      console.log("Evento global capturado - " + event);
+    });
+    
+    const CounterButton = {
+      name: "CounterButton",
+      props: {
+        count: {
+          type: Number,
+          required: true,
+        },
+      },
+      data() {
+        return {
+          componentCounter: this.count,
+        }
+      },
+      template: `
+        <div>
+          <button @click="handleClick">Add</button>
+        </div>
+      `,
+      methods: {
+        handleClick() {
+          this.componentCounter++;
+          this.$emit("update:count", this.componentCounter);
+          EventBus.$emit("globalEvent");
+        }
+      }
+    }
+    
+    const vm = new Vue({
+      el: "#app",
+      data: {
+        count: 0,
+      },
+      methods: {
+        updateCounter(componentCounter) {
+          this.count = componentCounter;
+        }
+      },
+      components: {
+        CounterButton,
+      }
+    });
+  </script>
+</body>
+</html>
