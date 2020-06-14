@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>VueJs Components One-Way Data Bind</title>
+
+  <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+</head>
+<body>
+  <div id="app">
+    <list-frameworks :frameworks="frameworks" title="Nice frameworks:"></list-frameworks>
+  </div>
+
+  <script type="module">
+    const ListFrameworks = {
+      name: "ListFrameword",
+      props: {
+        frameworks: [Array, Object],
+        title: {
+          default: 'List of frameworks:',
+          type: String,
+          required: false,
+        },
+      },
+      template: `
+        <div>
+          <h2>{{ title }}</h2>
+          <ul>
+            <li v-for="framework in frameworks">{{ framework }}</li>
+          </ul>
+        </div>
+      `,
+    };
+
+    const vm = new Vue({
+      el: "#app",
+      data: {
+        frameworks: ["VueJs", "React", "Node"],
+      },
+      components: {
+        ListFrameworks,
+      }
+    });
+  </script>
+</body>
+</html>
