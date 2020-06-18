@@ -1,13 +1,17 @@
 <template>
   <div>
-    <p>Usuário: {{ user }}</p>
+    <p>Usuário: {{ user.name }}</p>
+    <!-- <p>{{ $store.getters.userCompletedClasses }}</p> -->
+    <p>{{ userCompletedClasses }}</p>
+    <p>{{ userCompare('Thiago') }}</p>
+
     <input type="text" v-model="newUser">
     <button @click="handleClick">Alterar usuário</button>
   </div>
 </template>
 
 <script>
-import { mapState, mapMutations } from 'vuex';
+import { mapState, mapMutations, mapGetters } from 'vuex';
 
 export default {
   name: 'User',
@@ -17,13 +21,14 @@ export default {
     }
   },
   computed: {
+    ...mapGetters(['userCompletedClasses', 'userCompare']),
     ...mapState(['user']),
     // user() {
     //   return this.$store.state.user;
     // }
   },
   methods: {
-    ...mapMutations(['CHANGE_USER']),
+    ...mapMutations('user', ['CHANGE_USER']),
     handleClick() {
       // this.$store.commit("changeUser", {
       //   name: this.newUser
