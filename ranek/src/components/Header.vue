@@ -6,7 +6,8 @@
           <img src="@/assets/ranek.svg" alt="Ranked" />
         </router-link>
 
-        <router-link class="btn" to="/login">Vender / Login</router-link>
+        <router-link v-if="$store.state.login" class="btn" to="/profile">{{ name }}</router-link>
+        <router-link v-else class="btn" to="/login">Vender / Login</router-link>
       </nav>
     </header>
   </div>
@@ -15,6 +16,12 @@
 <script>
 export default {
   name: 'Header',
+  computed: {
+    name() {
+      // tudo que vier depois de " " substitui por ""
+      return this.$store.state.user.name.replace(/ .*/, '');
+    },
+  },
 };
 </script>
 
