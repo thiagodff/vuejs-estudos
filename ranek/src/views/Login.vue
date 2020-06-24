@@ -42,6 +42,9 @@ export default {
       this.$router.push({ name: 'Profile' });
     },
   },
+  created() {
+    document.title = 'Ranek | Login';
+  },
 };
 </script>
 
